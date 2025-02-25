@@ -47,16 +47,19 @@ const login = async (req, res) => {
                 }
 
             } catch (err) {
-                console.log(err);
-                res.status(200).json({ success: false, message: 'Invalid request' });
+                console.error(err);
+                res.status(500).json({ success: false, message: 'Internal server error', error: err.message });
+
             }
 
         } else {
-            res.status(200).json({ message: "Hello bhai padhai karlo" });
+            res.status(401).json({ success: false, message: "Unauthorized: Invalid credentials" });
+
         }
     }
     else {
-        res.status(200).json({ message: "Abeyy Padhai likhai karo IAS~YAS Bano" });
+        res.status(400).json({ success: false, message: "Bad request: Invalid method or missing authorization" });
+
     }
 }
 
